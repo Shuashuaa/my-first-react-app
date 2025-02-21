@@ -128,8 +128,11 @@ function App() {
       position: 'top-end',
       title: "Are you sure to delete this Product?",
       timerProgressBar: false,
+      confirmButtonColor: '#b33f40',
       showCancelButton: true,
       showConfirmButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel'
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios.delete(`https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/delete/${itemID}`)
@@ -166,7 +169,7 @@ function App() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col md:flex-row md:gap-[50px] items-center justify-center'>
       <ProductForm 
         sampleProductName={sampleProductName} 
         sampleProductPrice={sampleProductPrice} 
