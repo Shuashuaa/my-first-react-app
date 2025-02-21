@@ -2,7 +2,7 @@ const ProductForm = ({ sampleProductName, sampleProductPrice, setSampleProductNa
     return (
       <div>
         <h1 className='text-2xl mb-2'>{editProductId ? 'Edit Product' : 'Add a New Product'}</h1>
-        <form className='flex flex-col' onSubmit={handleSubmit}>
+        <form className='flex flex-col gap-1 text-left' onSubmit={handleSubmit}>
           <label>Enter a Product Name</label>
           <input
             value={sampleProductName} 
@@ -15,7 +15,7 @@ const ProductForm = ({ sampleProductName, sampleProductPrice, setSampleProductNa
             onChange={(e) => setSampleProductPrice(e.target.value)}
             className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Price" />
           
-          <button className='border border-gray-600 rounded-lg my-2'>
+          <button className='border border-gray-400 rounded-lg my-2 h-11 shadow'>
             {editProductId ? 'Update' : 'Add'} Product
           </button>
         </form>
