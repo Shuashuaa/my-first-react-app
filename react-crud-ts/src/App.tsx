@@ -166,12 +166,12 @@ function App() {
     }
   };
 
-  const deleteProduct = async (itemID : any) => {
+  const deleteProduct = async (itemID : number, index: number) => {
     Swal.fire({
       toast: true,
       icon: 'success',
       position: 'top-end',
-      title: "Are you sure to delete this Product?",
+      title: `Are you sure to delete the Product no ${index}?`,
       timerProgressBar: false,
       confirmButtonColor: '#b33f40',
       showCancelButton: true,
