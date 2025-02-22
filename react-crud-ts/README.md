@@ -48,3 +48,18 @@ export default tseslint.config({
   },
 })
 ```
+
+<br>
+
+# Installation Process for React19, Vite and TailwindCSS.
+> via https://ui.shadcn.com/docs/installation/vite
+```
+npm create vite@latest
+```
+but instead of using what shadcn/ui provides for tailwindcss we must use the ff: instead. (for now)
+> Tailwindcss4 is not yet optimized overall
+```
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+```
+then follow althrought.
