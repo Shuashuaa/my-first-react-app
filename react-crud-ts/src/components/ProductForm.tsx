@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button"
+
 interface ProductFormProps {
     sampleProductName: string;
     formNameResult: string;
@@ -41,9 +43,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
           />
           {formPriceResult && <p className="text-red-400 text-sm">{formPriceResult}</p>}
           
-          <button className='border border-gray-400 rounded-lg my-2 h-11 shadow'>
+          {/* <button className='border border-gray-400 rounded-lg my-2 h-11 shadow'>
             {editProductId ? 'Update' : 'Add'} Product
-          </button>
+          </button> */}
+          <Button className="my-2">
+            {editProductId ? 'Update' : 'Add'} Product
+          </Button>
         </form>
       </div>
     );
