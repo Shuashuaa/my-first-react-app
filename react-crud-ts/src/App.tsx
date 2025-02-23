@@ -16,7 +16,7 @@ const ProductSchema = z.object({
     message: "Product name must contain at least one letter.",
   }),
   price: z.string().regex(/^\d+(\.\d{1,2})?$/, {
-    message: "Price must be a valid number with up to two decimal places.",
+    message: "Price must be a valid number.",
   }),
 });
 
@@ -27,6 +27,7 @@ function App() {
   const [editProductId, setEditProductId] = useState<string | null>(null); 
   const [formNameResult, setFormNameResult] = useState('');
   const [formPriceResult, setFormPriceResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -49,6 +50,8 @@ function App() {
   };
 
   const addProduct = async () => {
+    setLoading(true);
+
     await axios.post("https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/insert", {
       sample_product_name: sampleProductName,
       sample_product_price: sampleProductPrice
@@ -82,10 +85,16 @@ function App() {
         showConfirmButton: false,
       });
       console.error(error);
+
+    }).finally(() => {
+      setLoading(false);
+
     });
   };
 
   const updateProduct = async () => {
+    setLoading(true);
+    
     await axios.put(`https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/update/${editProductId}`, {
       sample_product_name: sampleProductName,
       sample_product_price: sampleProductPrice
@@ -120,6 +129,10 @@ function App() {
         showConfirmButton: false,
       });
       console.error(error);
+
+    }).finally(() => {
+      setLoading(false);
+
     });
   };
 
@@ -214,7 +227,7 @@ function App() {
   }
 
   return (
-    <div className='flex flex-col md:flex-row md:gap-[50px] items-center justify-center'>
+    <div className='flex flex-col h-svh lg:flex-row lg:gap-[50px] items-center justify-center mx-10'>
       <ProductForm 
         sampleProductName={sampleProductName}
         formNameResult={formNameResult}
@@ -224,6 +237,7 @@ function App() {
         setSampleProductPrice={setSampleProductPrice}
         handleSubmit={handleSubmit}
         editProductId={editProductId}
+        loading={loading}
       />
       <ProductTable 
         data={data} 
