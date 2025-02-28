@@ -191,7 +191,7 @@ function App() {
       showConfirmButton: true,
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel'
-    }).then(async (result) => {
+    }).then(async (result: { isConfirmed: any; }) => {
       if (result.isConfirmed) {
         await axios.delete(`https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/delete/${itemID}`)
         .then((response) => {
