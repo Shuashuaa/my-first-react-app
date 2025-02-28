@@ -57,6 +57,8 @@ const PaginationSection: React.FC<PaginationProps> = ({
     const [prev, setPrev] = useState('Previous');
     const [next, setNext] = useState('Next');
 
+    // FIX MY PAGINATION SECTION FOR RESPONSIIIIIIVEVEVEVE
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 1024) {
