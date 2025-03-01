@@ -53,19 +53,20 @@ const PaginationSection: React.FC<PaginationProps> = ({
 
     const displayedPages = pages.slice(pageStart, pageEnd);
 
-    const [resp, setResp] = useState('pc');
-    const [buttonSize, setButtonSize] = useState('p-5');
+    // mobile responsive for "Previous" and "Next" Buttons
+    const [prev, setPrev] = useState('Previous');
+    const [next, setNext] = useState('Next');
 
     // FIX MY PAGINATION SECTION FOR RESPONSIIIIIIVEVEVEVE
 
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 1024) {
-                setResp('pc');
-                setButtonSize('p-5')
+                setPrev('Previous');
+                setNext('Next');
             } else {
-                setResp('mobile');
-                setButtonSize('p-6')
+                setPrev('P');
+                setNext('N');
             }
         };
 
@@ -80,17 +81,29 @@ const PaginationSection: React.FC<PaginationProps> = ({
     return (
         <Pagination>
             <PaginationContent>
-                { resp == "pc" && (
-                    <PaginationItem className={currentPage != 1 ? 'cursor-pointer' : 'cursor-default'}>
-                        <PaginationPrevious onClick={handlePrevPage} className={currentPage === 1 ? "bg-neutral-200 rounded-md" : ""} />
-                    </PaginationItem>
-                )}
+                <PaginationItem className={currentPage != 1 ? 'cursor-pointer' : 'cursor-default'}>
+                    <PaginationPrevious title={prev} onClick={handlePrevPage} className={currentPage === 1 ? "bg-neutral-200 rounded-md" : ""} />
+                </PaginationItem>
+
+                {/* {pages.map((page, idx) => (
+                <PaginationItem key={idx} className={currentPage === page ? "bg-neutral-200 rounded-md cursor-default" : "cursor-pointer"}>
+                    <PaginationLink onClick={() => setCurrentPage(page)}>{page}</PaginationLink>
+                </PaginationItem>
+                ))} */}
+
+                {/* {Math.max(0, currentPage - Math.floor(visiblePages / 2))}
+                -
+                {Math.min(totalPages, pageStart + visiblePages)}
+                -
+                {displayedPages}
+                -
+                {pageEnd } */}
 
                 {/* pages are far from the start */}
                 {pageStart > 0 && (
                     <>
                         <PaginationItem className={currentPage != 1 ? 'cursor-pointer' : 'cursor-default'}>
-                            <PaginationLink className={buttonSize} onClick={() => setCurrentPage(1)}>1</PaginationLink>
+                            <PaginationLink onClick={() => setCurrentPage(1)}>1</PaginationLink>
                         </PaginationItem>
                         {pageStart > 1 && <PaginationItem><PaginationEllipsis /></PaginationItem>}
                     </>
@@ -101,13 +114,14 @@ const PaginationSection: React.FC<PaginationProps> = ({
                         {
                             currentPage === page ? 
                             <>
-                                <PaginationLink className={buttonSize} isActive onClick={() => setCurrentPage(page)}>{page}</PaginationLink>
+                                <PaginationLink isActive onClick={() => setCurrentPage(page)}>{page}</PaginationLink>
                             </>
                             :
                             <>
-                                <PaginationLink className={buttonSize} onClick={() => setCurrentPage(page)}>{page}</PaginationLink>
+                                <PaginationLink onClick={() => setCurrentPage(page)}>{page}</PaginationLink>
                             </>
                         }
+                        
                     </PaginationItem>
                 ))}
 
@@ -116,17 +130,14 @@ const PaginationSection: React.FC<PaginationProps> = ({
                     <>
                         {pageEnd < totalPages && <PaginationItem><PaginationEllipsis /></PaginationItem>}
                         <PaginationItem className={currentPage != totalPages ? 'cursor-pointer' : 'cursor-default'}>
-                            <PaginationLink className={buttonSize} onClick={() => setCurrentPage(totalPages)}>{totalPages}</PaginationLink>
+                            <PaginationLink onClick={() => setCurrentPage(totalPages)}>{totalPages}</PaginationLink>
                         </PaginationItem>
                     </>
                 )}
 
-                {resp == "pc" && (
-                <PaginationItem className={currentPage !== totalPages ? 'cursor-pointer' : 'cursor-default'}>
-                    <PaginationNext onClick={handleNextPage} className={currentPage === totalPages ? "bg-neutral-200 rounded-md" : ""} />
+                <PaginationItem className={currentPage != totalPages ? 'cursor-pointer' : 'cursor-default'}>
+                    <PaginationNext title={next} onClick={handleNextPage} className={currentPage === totalPages ? "bg-neutral-200 rounded-md" : ""} />
                 </PaginationItem>
-                )}
-                
             </PaginationContent>
         </Pagination>
     );
