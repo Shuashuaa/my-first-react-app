@@ -1,4 +1,5 @@
 [![ci-test](https://github.com/shuashuaa/my-first-react-app/actions/workflows/test.yml/badge.svg)](https://github.com/shuashuaa/my-first-react-app/actions/workflows/test.yml.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8cf7b954-67c1-4533-b3b5-fa74f47286a4/deploy-status)](https://app.netlify.com/sites/my-first-react-app/deploys)
 
 # React + TypeScript + Vite
 
