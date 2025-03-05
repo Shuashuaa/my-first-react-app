@@ -56,8 +56,6 @@ const PaginationSection: React.FC<PaginationProps> = ({
     const [resp, setResp] = useState('pc');
     const [buttonSize, setButtonSize] = useState('p-5');
 
-    // FIX MY PAGINATION SECTION FOR RESPONSIIIIIIVEVEVEVE
-
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 1024) {
