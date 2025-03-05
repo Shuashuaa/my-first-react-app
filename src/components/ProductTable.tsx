@@ -19,15 +19,16 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(3);
+    const [filterQuery, setFilterQuery] = useState("");
 
     // mobile responsive
     useEffect(() => {
         const handleResize = () => {
-        if (window.innerWidth >= 1024) {
-            setItemsPerPage(5);
-        } else {
-            setItemsPerPage(3);
-        }
+            if (window.innerWidth >= 1024) {
+                setItemsPerPage(5);
+            } else {
+                setItemsPerPage(3);
+            }
         };
 
         handleResize();
@@ -37,16 +38,34 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
         // Cleanup the event listener
         return () => window.removeEventListener("resize", handleResize);
     }, []);
-
+    
     const lastItemIndex = currentPage * itemsPerPage; // 1 * 5 = 5 | 2 * 5 = 10
     const firstItemIndex = lastItemIndex - itemsPerPage; // 5 - 5 = 0 | 10 - 5 = 5
-    const currentItems = data
+
+    // Filter the data based on the filter query
+    const filteredItems = data.filter((task) =>
+        task.sample_product_name.toLowerCase().includes(filterQuery.toLowerCase())
+    );
+
+    const currentItems = filteredItems
     .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
     .slice(firstItemIndex, lastItemIndex); // (0,5) | (5,10)
 
     return (
         <div className="list mt-5">
-        <h1 className="text-2xl mb-2">List of Products</h1>
+
+            {/* Filter Input */}
+            <div className="md:flex justify-between mb-4">
+                <h1 className="text-2xl mb-2">List of Products</h1>
+                <input
+                    type="text"
+                    placeholder="search..."
+                    value={filterQuery}
+                    onChange={(e) => setFilterQuery(e.target.value)}
+                    className="p-1 border rounded w-full md:w-[230px]"
+                />
+            </div>
+
         <div className="w-full md:w-[500px] mb-3">
             <table className="shadow w-full">
                 <thead className="sticky top-[-0.5px] bg-white border border-gray-600 z-10">
