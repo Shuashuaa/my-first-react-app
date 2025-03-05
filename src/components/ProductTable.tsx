@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import PaginationSection from "./PaginationSection";
 import { useState, useEffect } from "react";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 
 interface Product {
   id: number;
@@ -27,7 +32,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
             if (window.innerWidth >= 1024) {
                 setItemsPerPage(5);
             } else {
-                setItemsPerPage(3);
+                setItemsPerPage(4);
             }
         };
 
@@ -82,20 +87,43 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
                     .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
                     .map((task, index) => (
                         <tr key={task.id} className="border border-gray-300 *:p-1 hover:bg-gray-100 *:text-sm">
-                        <td className="border border-gray-300 p-2 text-center">{firstItemIndex + index + 1}</td>
-                        <td className="border border-gray-300 p-2">{task.sample_product_name}</td>
-                        <td className="border border-gray-300 p-2 text-center">
-                            ₱{parseFloat(task.sample_product_price).toLocaleString()}
-                        </td>
-                        <td className="border border-gray-300 p-2 text-center">{new Date(task.created_at).toISOString().split("T")[0]}</td>
-                        <td className="grid sm:grid-cols-2 gap-2">
-                            <Button className="shadow border text-gray-700 bg-green-300 rounded-md hover:bg-green-400" onClick={() => handleEdit(task)}>
-                            Edit
-                            </Button>
-                            <Button className="shadow border text-gray-700 bg-red-300 rounded-md hover:bg-red-400" onClick={() => deleteProduct(task.id, index + 1)}>
-                            Delete
-                            </Button>
-                        </td>
+                            <td className="border border-gray-300 p-2 text-center">{firstItemIndex + index + 1}</td>
+                            <td className="border border-gray-300 p-2">{task.sample_product_name}</td>
+                            <td className="border border-gray-300 p-2 text-center">
+                                ₱{parseFloat(task.sample_product_price).toLocaleString()}
+                            </td>
+                            <td className="border border-gray-300 p-2 text-center">{new Date(task.created_at).toISOString().split("T")[0]}</td>
+                            <td className="grid gap-2">
+                                
+                                { itemsPerPage == 5 ?
+                                <div className="grid sm:grid-cols-2">
+                                    <Button className="shadow border text-gray-700 bg-green-300 rounded-md hover:bg-green-400" onClick={() => handleEdit(task)}>
+                                        Edit
+                                    </Button><Button className="shadow border text-gray-700 bg-red-300 rounded-md hover:bg-red-400" onClick={() => deleteProduct(task.id, firstItemIndex + index + 1)}>
+                                            Delete
+                                    </Button>
+                                </div>
+                                :
+                                <>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Button className="bg-gray-300 text-black">...</Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent>
+                                            <p>{task.sample_product_name}</p>
+                                            <div className="grid grid-cols-2">
+                                                <Button className="shadow border text-gray-700 bg-green-300 rounded-md hover:bg-green-400" onClick={() => handleEdit(task)}>
+                                                Edit
+                                                </Button>
+                                                <Button className="shadow border text-gray-700 bg-red-300 rounded-md hover:bg-red-400" onClick={() => deleteProduct(task.id, firstItemIndex + index + 1)}>
+                                                Delete
+                                                </Button>
+                                            </div>
+                                        </PopoverContent>
+                                    </Popover>
+                                </>
+                                }
+                            </td>
                         </tr>
                     ))}
                 </tbody>
