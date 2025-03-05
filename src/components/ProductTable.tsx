@@ -45,6 +45,11 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
         // Cleanup the event listener
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    // if filterQuery Changes value the pagination page will go back to 1
+    useEffect(() => {
+        setCurrentPage(1)
+    },[filterQuery])
     
     const lastItemIndex = currentPage * itemsPerPage; // 1 * 5 = 5 | 2 * 5 = 10
     const firstItemIndex = lastItemIndex - itemsPerPage; // 5 - 5 = 0 | 10 - 5 = 5
@@ -137,7 +142,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
         </div>
 
         <PaginationSection 
-            totalItems={data.length} 
+            totalItems={filteredItems.length} 
             itemsPerPage={itemsPerPage} 
             currentPage={currentPage} 
             setCurrentPage={setCurrentPage} 
