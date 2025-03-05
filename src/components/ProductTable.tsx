@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import PaginationSection from "./PaginationSection";
 import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react";
 import {
     Popover,
     PopoverContent,
@@ -62,24 +64,28 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
             {/* Filter Input */}
             <div className="md:flex justify-between mb-4">
                 <h1 className="text-2xl mb-2">List of Products</h1>
-                <input
-                    type="text"
-                    placeholder="search..."
-                    value={filterQuery}
-                    onChange={(e) => setFilterQuery(e.target.value)}
-                    className="p-1 border rounded w-full md:w-[230px]"
-                />
+                <div className="relative w-full md:w-[230px]">
+                    {/* Prepend Loader2 icon */}
+                    <Search className="absolute left-3 top-[45%] transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                    <Input
+                        type="text"
+                        placeholder="search..."
+                        value={filterQuery}
+                        onChange={(e) => setFilterQuery(e.target.value)}
+                        className="w-full md:w-[230px] pl-10 pr-3 py-2 border border-gray-400 rounded text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
             </div>
 
         <div className="w-full md:w-[500px] mb-3">
-            <table className="shadow w-full">
+            <table className="w-[350px] md:w-[500px] shadow">
                 <thead className="sticky top-[-0.5px] bg-white border border-gray-600 z-10">
-                    <tr className="*:border *:border-gray-300 *:p-1 text-gray-600 *:md:text-sm *:text-[12px]">
-                    <th>No</th>
-                    <th className="w-[120px]">Product Name</th>
-                    <th>Product Price</th>
-                    <th>Created Date</th>
-                    <th>Actions</th>
+                    <tr className="*:border *:border-gray-300 *:px-1 text-gray-600 *:md:text-sm *:text-[12px]">
+                        <th>No</th>
+                        <th className="w-[120px]">Product Name</th>
+                        <th>Product Price</th>
+                        <th>Created Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
