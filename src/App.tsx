@@ -184,7 +184,7 @@ function App() {
       toast: true,
       icon: 'success',
       position: 'top-end',
-      title: `Are you sure to delete the Product no ${index}?`,
+      title: `Are you sure to delete the Product no.${index}?`,
       timerProgressBar: false,
       confirmButtonColor: '#b33f40',
       showCancelButton: true,

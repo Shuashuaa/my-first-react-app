@@ -35,7 +35,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             <Input
                 value={sampleProductName} 
                 onChange={(e) => setSampleProductName(e.target.value)}
-                className="w-[350px] shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                className="w-full shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Name" 
             />
             {formNameResult && <p className="text-red-400 text-sm">{formNameResult}</p>}
@@ -44,7 +44,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             <Input 
                 value={sampleProductPrice}
                 onChange={(e) => setSampleProductPrice(e.target.value)}
-                className="w-[350px] shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                className="w-full shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 placeholder="Price" 
             />
             {formPriceResult && <p className="text-red-400 text-sm">{formPriceResult}</p>}
