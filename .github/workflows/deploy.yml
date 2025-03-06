@@ -21,3 +21,4 @@ jobs:
           npm install
           npm run build
           curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
+          
