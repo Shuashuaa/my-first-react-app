@@ -36,8 +36,6 @@ function App() {
     console.log(apiKey, 'api keeeeeeeeeeeeeeeey');
   }, []);
 
-
-
   const fetchData = () => { 
     axios.get("https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/")
       .then((response) => {
@@ -88,7 +86,7 @@ function App() {
         toast: true,
         icon: 'error',
         position: 'top-end',
-        title: `Invalid Input, ${process.env.VITE_API_KEY}`,
+        title: `Invalid Input, ${error}`,
         timerProgressBar: true,
         timer: 3500,
         showCancelButton: false,
@@ -108,6 +106,11 @@ function App() {
     await axios.put(`https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/update/${editProductId}`, {
       sample_product_name: sampleProductName,
       sample_product_price: sampleProductPrice
+    },
+    {
+      headers: {
+        "x-api-key": apiKey
+      }
     })
     .then((response) => {
       console.log(response.data);
@@ -132,7 +135,7 @@ function App() {
         toast: true,
         icon: 'error',
         position: 'top-end',
-        title: "Invalid Input",
+        title: "Updating is Unsuccessful",
         timerProgressBar: true,
         timer: 3500,
         showCancelButton: false,
@@ -203,7 +206,12 @@ function App() {
       cancelButtonText: 'Cancel'
     }).then(async (result: { isConfirmed: any; }) => {
       if (result.isConfirmed) {
-        await axios.delete(`https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/delete/${itemID}`)
+        await axios.delete(`https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/delete/${itemID}`,
+        {
+          headers: {
+            "x-api-key": apiKey
+          }
+        })
         .then((response) => {
           console.log(response.data);
           fetchData();
