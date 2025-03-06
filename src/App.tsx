@@ -31,6 +31,7 @@ function App() {
 
   useEffect(() => {
     fetchData();
+    console.log(process.env.REACT_APP_API_KEY, 'api keeeeeeeeeeeeeeeey');
   }, []);
 
   const apiKey = process.env.REACT_APP_API_KEY;
