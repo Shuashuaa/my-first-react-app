@@ -10,5 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Deploy site
-        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
+
+      # Set environment variables from GitHub Secrets (for example, API_KEY)
+      - name: Set environment variables
+        run: echo "REACT_APP_API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV  # Using a GitHub secret as an env var
+
+      - name: Build and Deploy to Netlify
+        env:
+          REACT_APP_API_KEY: ${{ secrets.API_KEY }}  # Pass the API key to the build process
+        run: |
+          npm install
+          npm run build
+          curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}

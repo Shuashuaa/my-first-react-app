@@ -55,6 +55,11 @@ function App() {
     await axios.post("https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/insert", {
       sample_product_name: sampleProductName,
       sample_product_price: sampleProductPrice
+    },
+    {
+      headers: {
+        "x-api-key": process.env.REACT_APP_API_KEY
+      }
     })
     .then((response) => {
       console.log(response.data);
