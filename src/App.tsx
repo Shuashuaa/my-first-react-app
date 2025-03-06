@@ -85,7 +85,7 @@ function App() {
         toast: true,
         icon: 'error',
         position: 'top-end',
-        title: `Invalid Input`,
+        title: `Invalid Input, ${console.log("API Key: ", process.env.REACT_APP_API_KEY)}`,
         timerProgressBar: true,
         timer: 3500,
         showCancelButton: false,
