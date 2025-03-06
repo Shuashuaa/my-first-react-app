@@ -29,12 +29,14 @@ function App() {
   const [formPriceResult, setFormPriceResult] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   useEffect(() => {
     fetchData();
-    console.log(process.env.REACT_APP_API_KEY, 'api keeeeeeeeeeeeeeeey');
+    console.log(apiKey, 'api keeeeeeeeeeeeeeeey');
   }, []);
 
-  const apiKey = process.env.REACT_APP_API_KEY;
+
 
   const fetchData = () => { 
     axios.get("https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/")
@@ -86,7 +88,7 @@ function App() {
         toast: true,
         icon: 'error',
         position: 'top-end',
-        title: `Invalid Input, ${process.env.REACT_APP_API_KEY}`,
+        title: `Invalid Input, ${process.env.VITE_API_KEY}`,
         timerProgressBar: true,
         timer: 3500,
         showCancelButton: false,
