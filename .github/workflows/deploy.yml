@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,12 +13,12 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "REACT_APP_API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
-          echo "REACT_APP_API_KEY set to: ${{ secrets.API_KEY }}"  # Log the API key (only for debugging)
+          echo "VITE_API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+          echo "VITE_API_KEY set to: ${{ secrets.API_KEY }}"  # Log the API key (only for debugging)
 
       - name: Build and Deploy to Netlify
         env:
-          REACT_APP_API_KEY: ${{ secrets.API_KEY }}
+          VITE_API_KEY: ${{ secrets.API_KEY }}
         run: |
           npm install
           npm run build
