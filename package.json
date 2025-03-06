@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && react-scripts build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "echo REACT_APP_API_KEY: $REACT_APP_API_KEY"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",
