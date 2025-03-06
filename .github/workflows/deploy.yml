@@ -11,7 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Set environment variables from GitHub Secrets (for example, API_KEY)
       - name: Set environment variables
         run: echo "REACT_APP_API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV  # Using a GitHub secret as an env var
 
