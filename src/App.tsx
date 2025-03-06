@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     fetchData();
-    console.log(apiKey, 'api keeeeeeeeeeeeeeeey');
   }, []);
 
   const fetchData = () => { 
