@@ -33,6 +33,8 @@ function App() {
     fetchData();
   }, []);
 
+  const apiKey = process.env.REACT_APP_API_KEY;
+
   const fetchData = () => { 
     axios.get("https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/")
       .then((response) => {
@@ -58,7 +60,7 @@ function App() {
     },
     {
       headers: {
-        "x-api-key": process.env.REACT_APP_API_KEY
+        "x-api-key": apiKey
       }
     })
     .then((response) => {
@@ -83,7 +85,7 @@ function App() {
         toast: true,
         icon: 'error',
         position: 'top-end',
-        title: "Invalid Input",
+        title: `Invalid Input ${process.env.REACT_APP_API_KEY}`,
         timerProgressBar: true,
         timer: 3500,
         showCancelButton: false,
