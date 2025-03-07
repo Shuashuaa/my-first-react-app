@@ -1,3 +1,8 @@
+// add quantity to the list and if existing increase the qty
+// or just pop an error than an item is already existing, then for a fancy stuff, add a feature highlight the row that is already existing
+// add everything on the table as searchable
+// make the requests from posts required a key-phrase
+
 import PaginationSection from "./PaginationSection";
 import FilterInput from "./FilterInput";
 
@@ -49,6 +54,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
     // if filterQuery Changes value the pagination page will go back to 1
     useEffect(() => {
         setCurrentPage(1)
+        console.log(filterQuery)
     },[filterQuery])
     
     const lastItemIndex = currentPage * itemsPerPage; // 1 * 5 = 5 | 2 * 5 = 10
@@ -80,12 +86,12 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
         <div className="w-full md:w-[500px] mb-3">
             <table className="w-[350px] md:w-[500px] shadow">
                 <thead className="sticky top-[-0.5px] bg-white border border-gray-600 z-10">
-                    <tr className="*:border *:border-gray-300 *:px-1 text-gray-600 *:md:text-sm *:text-[12px]">
-                        <th>No</th>
-                        <th className="w-[120px]">Product Name</th>
-                        <th>Product Price</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
+                    <tr className="*:px-1 text-gray-600 *:md:text-sm *:text-[12px]">
+                        <th className="border border-gray-300">No</th>
+                        <th className="w-[120px] border border-gray-300">Product Name</th>
+                        <th className="border border-gray-300">Product Price</th>
+                        <th className="border border-gray-300">Created Date</th>
+                        <th className="border border-gray-300">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
