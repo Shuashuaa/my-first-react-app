@@ -1,13 +1,13 @@
-// add quantity to the list and if existing increase the qty
-// or just pop an error than an item is already existing, then for a fancy stuff, add a feature highlight the row that is already existing
 // add everything on the table as searchable
-// make the requests from posts required a key-phrase
+
+
+import { useState, useEffect } from "react";
+import { useDebounce } from "./hooks";
 
 import PaginationSection from "./PaginationSection";
 import FilterInput from "./FilterInput";
-
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+
 import {
     Popover,
     PopoverContent,
@@ -32,6 +32,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(3);
     const [filterQuery, setFilterQuery] = useState("");
+    const debouncedSearch = useDebounce(filterQuery);
 
     // mobile responsive
     useEffect(() => {
@@ -54,7 +55,6 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
     // if filterQuery Changes value the pagination page will go back to 1
     useEffect(() => {
         setCurrentPage(1)
-        console.log(filterQuery)
     },[filterQuery])
     
     const lastItemIndex = currentPage * itemsPerPage; // 1 * 5 = 5 | 2 * 5 = 10
@@ -62,7 +62,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
 
     // Filter the data based on the filter query
     const filteredItems = data.filter((task) =>
-        task.sample_product_name.toLowerCase().includes(filterQuery.toLowerCase())
+        task.sample_product_name.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
 
     const currentItems = filteredItems
