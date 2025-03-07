@@ -1,8 +1,12 @@
+// add everything on the table as searchable
+
+import { useState, useEffect } from "react";
+import { useDebounce } from "./hooks";
+
 import PaginationSection from "./PaginationSection";
 import FilterInput from "./FilterInput";
-
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+
 import {
     Popover,
     PopoverContent,
@@ -27,6 +31,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(3);
     const [filterQuery, setFilterQuery] = useState("");
+    const debouncedSearch = useDebounce(filterQuery);
 
     // mobile responsive
     useEffect(() => {
@@ -56,7 +61,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
 
     // Filter the data based on the filter query
     const filteredItems = data.filter((task) =>
-        task.sample_product_name.toLowerCase().includes(filterQuery.toLowerCase())
+        task.sample_product_name.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
 
     const currentItems = filteredItems
@@ -80,12 +85,12 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
         <div className="w-full md:w-[500px] mb-3">
             <table className="w-[350px] md:w-[500px] shadow">
                 <thead className="sticky top-[-0.5px] bg-white border border-gray-600 z-10">
-                    <tr className="*:border *:border-gray-300 *:px-1 text-gray-600 *:md:text-sm *:text-[12px]">
-                        <th>No</th>
-                        <th className="w-[120px]">Product Name</th>
-                        <th>Product Price</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
+                    <tr className="*:px-1 text-gray-600 *:md:text-sm *:text-[12px]">
+                        <th className="border border-gray-300">No</th>
+                        <th className="w-[120px] border border-gray-300">Product Name</th>
+                        <th className="border border-gray-300">Product Price</th>
+                        <th className="border border-gray-300">Created Date</th>
+                        <th className="border border-gray-300">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

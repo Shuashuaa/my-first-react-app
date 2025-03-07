@@ -7,19 +7,6 @@ import './App.css';
 
 import { z } from "zod";
 
-const ProductSchema = z.object({
-  name: z.string()
-  .min(3, {
-    message: "Product name must be at least 3 characters.",
-  })
-  .regex(/[a-zA-Z]/, {
-    message: "Product name must contain at least one letter.",
-  }),
-  price: z.string().regex(/^\d+(\.\d{1,2})?$/, {
-    message: "Price must be a valid number.",
-  }),
-});
-
 function App() {
   const [data, setData] = useState<any[]>([]);
   const [sampleProductName, setSampleProductName] = useState('');
@@ -30,10 +17,26 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const apiKey = import.meta.env.VITE_API_KEY;
+  
+  const ProductSchema = z.object({
+    name: z.string()
+    .min(3, {
+      message: "Product name must be at least 3 characters.",
+    })
+    .regex(/[a-zA-Z]/, {
+      message: "Product name must contain at least one letter.",
+    })
+    .refine((val) => {
+      const isExist = data.some(name => name.sample_product_name.toLowerCase() === val.toLowerCase()) 
+      return !isExist;
+    }, {
+      message: "Product name already exists.",
+    }),
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+    price: z.string().regex(/^\d+(\.\d{1,2})?$/, {
+      message: "Price must be a valid number.",
+    }),
+  });
 
   const fetchData = () => { 
     axios.get("https://rnz7auon30.execute-api.ap-southeast-1.amazonaws.com/")
@@ -50,6 +53,14 @@ function App() {
         setData([]); 
       });
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []); 
+
+  useEffect(() => {
+    console.log(data.some(name => name === "qweqeqweqwe"))
+  }, [data]); 
 
   const addProduct = async () => {
     setLoading(true);
