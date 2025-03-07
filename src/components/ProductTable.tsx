@@ -1,6 +1,5 @@
 // add everything on the table as searchable
 
-
 import { useState, useEffect } from "react";
 import { useDebounce } from "./hooks";
 
