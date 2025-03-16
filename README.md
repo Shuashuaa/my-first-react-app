@@ -66,3 +66,27 @@ npm install -D tailwindcss@3 postcss autoprefixer
 npx tailwindcss init -p
 ```
 then follow althrought.
+
+# Development Lambda API Implementation
+
+### .env
+> local dev
+```
+VITE_API_KEY=
+```
+<br>
+
+### `Netlify` environment variables 
+> prod
+```
+VITE_API_KEY=
+```
+<br>
+
+### `Github` Secrets
+> API key created in `AWS Secrets Manager`
+```
+API_KEY
+```
+
+To ensure the API key is securely handled and accessible during both the `build process` and `runtime`.
