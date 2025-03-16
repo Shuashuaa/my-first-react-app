@@ -12,14 +12,12 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-
 interface Product {
   id: number;
   sample_product_name: string;
   sample_product_price: string;
   created_at: string;
 }
-
 interface ProductTableProps {
   data: Product[];
   handleEdit: (task: Product) => void;
@@ -84,7 +82,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ data, handleEdit, deletePro
 
         <div className="w-full md:w-[500px] mb-3">
             <table className="w-[350px] md:w-[500px] shadow">
-                <thead className="sticky top-[-0.5px] bg-white border border-gray-600 z-10">
+                <thead className="bg-white border border-gray-600 z-10">
                     <tr className="*:px-1 text-gray-600 *:md:text-sm *:text-[12px]">
                         <th className="border border-gray-300">No</th>
                         <th className="w-[120px] border border-gray-300">Product Name</th>
